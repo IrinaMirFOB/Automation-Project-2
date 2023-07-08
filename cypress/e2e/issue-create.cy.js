@@ -118,16 +118,17 @@ describe('Issue create', () => {
     });
 
     it.only('Test 2', () => {
+      const randomTitle = faker.lorem.words(1);
       //System finds modal for creating issue and does next steps inside of it
     cy.get('[data-testid="modal:issue-create"]').within(() => {
 
       //Write several random words into "Description" field
-      const randomtext = faker.lorem.words();
-      cy.get('.ql-editor').type(randomtext);
+      const randomText = faker.lorem.words();
+      cy.get('.ql-editor').type(randomText);
 
       //Write several random words into "Short Summary" field
-      const randomtitle = faker.lorem.words(1);
-      cy.get('input[name="title"]').type(randomtitle);
+      
+      cy.get('input[name="title"]').type(randomTitle);
 
       //Select "Low" priority from list
       cy.get('[data-testid="select:priority"]').click();
@@ -153,12 +154,11 @@ describe('Issue create', () => {
     //Assert than only one list with name Backlog is visible and do steps inside of it
     cy.get('[data-testid="board-list:backlog').should('be.visible').and('have.length', '1').within(() => {
       //Assert that this list contains 5 issues and first element with tag p has specified text
-      /*cy.get('[data-testid="list-issue"]')
+      cy.get('[data-testid="list-issue"]')
           .should('have.length', '5')
           .first()
-          .find('i')
-          .contains(randomtitle);
-*/
+          .find('p')
+          .contains(randomTitle);
     });
     });
 });
