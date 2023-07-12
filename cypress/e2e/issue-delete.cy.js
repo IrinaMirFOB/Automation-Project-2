@@ -33,7 +33,7 @@ describe('Issue details editing', () => {
     });
     });
 
-    it.only('Test 2: Create new test case for starting the deleting issue process, but cancelling this action', () => {
+    it('Test 2: Create new test case for starting the deleting issue process, but cancelling this action', () => {
 
       //Confirming that correct screen is opened, clicking on trash icon
       cy.get('[placeholder="Short summary"]').contains('This is an issue of type: Task.');
@@ -44,12 +44,10 @@ describe('Issue details editing', () => {
       cy.get('[data-testid="modal:confirm"]').contains('Cancel').click();
       cy.get('[data-testid="modal:confirm"]').should("not.exist");
 
-
+      //Closing screen by clicking on X
       cy.get('[placeholder="Short summary"]').contains('This is an issue of type: Task.');
-      //cy.get('[data-testid="icon:trash"]').next().contains('[data-testid="icon:close"]')
+      cy.get('[data-testid="modal:issue-details"]').find('button').find('[data-testid="icon:close"]').click();
 
-      //Reload the page
-      cy.reload();
 
       //Assert than only one list with name Backlog is visible and do steps inside of it
       cy.get('[data-testid="board-list:backlog').should('be.visible').and('have.length', '1').within(() => {
