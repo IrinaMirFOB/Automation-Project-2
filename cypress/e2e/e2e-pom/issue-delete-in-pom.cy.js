@@ -16,10 +16,26 @@ describe('Issue delete', () => {
   const issueTitle = 'This is an issue of type: Task.';
 
   it('Should delete issue successfully', () => {
-    //add steps to delete issue
+    
+    // steps to delete issue
+    IssueModal.clickDeleteButton();
+    IssueModal.confirmDeletion();
+
+    cy.reload();
+
+    //Check that ticket isn't on board anymore 
+    IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle);
   });
 
   it('Should cancel deletion process successfully', () => {
     //add steps to start deletion proces but cancel it
+    IssueModal.clickDeleteButton();
+    IssueModal.cancelDeletion();
+
+    //Closing ticket's screen
+    IssueModal.closeDetailModal();
+
+    //Check that ticket is still on board
+    IssueModal.ensureIssueIsVisibleOnBoard(issueTitle);
   });
 });
